@@ -23,10 +23,24 @@ class GossipsController < ApplicationController
   end
 
   def edit
-
+    @gossip = Gossip.find(params[:id])
   end
 
   def update
+    @gossip = Gossip.find(params[:id])
+    gossip_params = params.require(:gossip).permit(:title, :content)
+    if @gossip.update(gossip_params)
+      flash[:success] = "BRAVO, votre potin a bien été modifié"
+      redirect_to gossips_path
+    else
+      flash[:error] = "ROLLBACK, erreur sur les champs de modifications"
+      render :edit
+    end
+end
 
+  def destroy
+    @gossip = Gossip.find(params[:id])
+    @gossip.destroy
+    redirect_to gossips_path
   end
 end

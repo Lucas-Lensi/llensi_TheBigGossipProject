@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :gossips, except: [:destroy]
-  get '/contact', to: 'static_pages#contact'
-  get '/team', to: 'static_pages#team'
+  resources :gossips do
+    resources :user, only: [:show]
+    #resources :city, only: [:show]
+    resources :comment, except: [:index, :show, :create]
+  end
 end

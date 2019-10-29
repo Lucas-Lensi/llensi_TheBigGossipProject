@@ -20,10 +20,9 @@
             <p><%=@gossip.user.first_name%> <%=@gossip.user.last_name%>, <%=@gossip.user.city.name%></p><br>
           </p>
           <p>Plus d'infos sur l'auteur ?</p>
-          <form action="/accueil/<%=@gossip.id%>/<%=@gossip.user.id%>" method="post">
-            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-            <button type="submit" class="btn btn-primary" name="name" value="<%=@gossip.user.id%>">Author</button>
-          </form>
+          <a href="<%=gossip_user_path(@gossip.id, @gossip.user.id)%>"><button type="button" class="btn btn-primary">Show</button></a>
+          <a href="<%= edit_gossip_path(@gossip.id) %>"><button type="button" class="btn btn-primary">Edit</button></a>
+          <a href="<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Are you sure ?" data-method="delete">Delete</a>
         </div>
       </div>
     </section>

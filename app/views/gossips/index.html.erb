@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <section class="container">
+    <div class="row mt-5 mb-3">
+      <div class="col">
+        <h1 class="text-center">Bonjour</h1>
+        <br><br>
+        <h2 class="text-center">Voici tous les gossips, n'hesite pas a les lire :)</h2>
+        <br><br>
+        <h3 class="text-center"><%= link_to "Creer un gossip", new_gossip_path %></h3>
+      </div>
+    </div>
+      <% @gossips.reverse.each do |gossip| %>
+      <% if gossip.id % 3 == 0 %>
+        <div class="card-deck">
+      <%end%>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-text">
+            <small>potin n°<%=gossip.id%></small><br>
+            <h4><%= gossip.title %></h4><br>
+            <%= gossip.content %><br/>
+          </p>
+          <small class="text-muted"><%= gossip.user.first_name %></small>
+          <br><br>
+          <a href="/gossips/<%=gossip.id%>"><button type="button" class="btn btn-primary">Show</button></a>
+        </div>
+      </div>
+      </div>
+      <%end%>
+
+  </section>
+
+  </body>
+</html>

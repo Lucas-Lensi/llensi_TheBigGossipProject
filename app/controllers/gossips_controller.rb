@@ -28,6 +28,7 @@ class GossipsController < ApplicationController
 
   def update
     @gossip = Gossip.find(params[:id])
+    puts params.inspect
     gossip_params = params.require(:gossip).permit(:title, :content)
     if @gossip.update(gossip_params)
       flash[:success] = "BRAVO, votre potin a bien été modifié"

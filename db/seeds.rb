@@ -54,10 +54,10 @@ end
   puts "#{index+1} comment created"
 end
 
-#10.times do |index|
-#  Tag.create(title: Faker::Quote.singular_siegler)
-#  puts "#{index+1} tag created"
-#end
+10.times do |index|
+  Tag.create(title: Faker::Games::Pokemon.name)
+  puts "#{index+1} tag created"
+end
 
 #40.times do |index|
 #  TagGossip.create(tag: Tag.find(rand(1..10)), gossip: Gossip.find(rand(1..20)))

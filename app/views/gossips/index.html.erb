@@ -26,9 +26,10 @@
             <h4><%= gossip.title %></h4><br>
             <%= gossip.content %><br/>
           </p>
-          <small class="text-muted"><%= gossip.user.first_name %></small>
+          <small class="text-muted"><%= gossip.user.first_name %></small><br><br>
+          <small><B><%=gossip.comments.length%> commentaires</B></small>
           <br><br>
-          <a href="/gossips/<%=gossip.id%>"><button type="button" class="btn btn-primary">Show</button></a>
+          <a href="<%= gossip_path(gossip.id) %>"><button type="button" class="btn btn-primary">Show</button></a>
         </div>
       </div>
       </div>

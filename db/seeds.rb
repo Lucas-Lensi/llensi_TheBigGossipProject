@@ -37,8 +37,21 @@ User.create(
 end
 
 20.times do |index|
-  Gossip.create(title: Faker::Quote.yoda, content: Faker::Quote.famous_last_words, user: User.find(rand(2..11)))
+  Gossip.create(
+    title: Faker::Games::ElderScrolls.race,
+    content: Faker::Quote.famous_last_words,
+    user: User.find(rand(2..11))
+  )
   puts "#{index+1} gossip created"
+end
+
+50.times do |index|
+  Comment.create(
+    content: Faker::Quote.robin,
+    user: User.find(rand(2..11)),
+    gossip: Gossip.find(rand(1..10))
+  )
+  puts "#{index+1} comment created"
 end
 
 #10.times do |index|

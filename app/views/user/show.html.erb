@@ -19,6 +19,7 @@
                   <B>Age :</B> <%= @user.age %><br><br>
                   <B>City :</B> <%= @user.city.name %><br><br>
                   <B>description :</B> <%= @user.description %>
+                  <p><a class="btn btn-dark" <%= link_to "City", city_path(@user.city.id)%></a></p>
                 </div>
               </div>
             </div>

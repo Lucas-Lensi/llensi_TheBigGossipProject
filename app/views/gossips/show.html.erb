@@ -24,7 +24,8 @@
             <% @gossip.comments.each do |comment|%>
             <div class="container ml-0 pl-0 pt-2 pb-2 border-top">
               <B><%= comment.user.first_name %></B> : <%= comment.content %><br>
-              <small><a href="<%= edit_gossip_comment_path(@gossip.id, comment.id) %>">Edit</a></small>
+              <small><a href="<%= edit_gossip_comment_path(@gossip.id, comment.id) %>">Edit </a>/</small>
+              <small><a href="<%= gossip_user_path(@gossip.id, comment.user.id) %>"> Author</a></small>
             </div>
             <%end%>
           </p>
@@ -42,6 +43,7 @@
         <br>
 
           <a href="<%=gossip_user_path(@gossip.id, @gossip.user.id)%>"><button type="button" class="btn btn-primary">Author</button></a>
+          <a href="<%=city_path(@gossip.user.city.id)%>"><button type="button" class="btn btn-primary">City</button></a>
           <a href="<%= edit_gossip_path(@gossip.id) %>"><button type="button" class="btn btn-warning">Edit</button></a>
           <a href="<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Are you sure ?" data-method="delete">Delete</a>
         </div>

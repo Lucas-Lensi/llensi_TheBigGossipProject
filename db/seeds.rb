@@ -49,7 +49,7 @@ end
   Comment.create(
     content: Faker::Quote.robin,
     user: User.find(rand(2..11)),
-    gossip: Gossip.find(rand(1..10))
+    gossip: Gossip.find(rand(1..20))
   )
   puts "#{index+1} comment created"
 end

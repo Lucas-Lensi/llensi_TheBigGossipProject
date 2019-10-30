@@ -24,6 +24,13 @@
           <%= label_tag 'content' %>
           <%= text_area_tag 'content', nil, placeholder: 'Entrer le contenue du Gossip', class: 'form-control' %>
           </div>
+          <select multiple name="carlist" form="carform">
+            <% @tags.each do |tag| %>
+            <option value="<%= tag.title %>"><%= tag.title %></option>
+            <%end%>
+          </select>
+          <br>
+          <br>
           <%= submit_tag "Create Post", class: "btn btn-primary" %>
         <% end %>
       </div>

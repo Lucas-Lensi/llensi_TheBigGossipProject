@@ -32,7 +32,7 @@ class GossipsController < ApplicationController
     gossip_params = params.require(:gossip).permit(:title, :content)
     if @gossip.update(gossip_params)
       flash[:success] = "BRAVO, votre potin a bien été modifié"
-      redirect_to gossips_path
+      redirect_to gossip_path(@gossip.id)
     else
       flash[:error] = "ROLLBACK, erreur sur les champs de modifications"
       render :edit

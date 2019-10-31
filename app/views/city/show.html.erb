@@ -24,7 +24,23 @@
                   <h5><%=gossip.title%></h5>
                   <p><%=user.first_name%> <%=user.last_name%></p>
                   <p><%=City.find(user.city_id).name%></p>
+
                   <p><a class="btn btn-dark" <%= link_to "Voir", gossip_path(gossip.id)%></a></p>
+                  <% if logged_in? %>
+                  <% unless already_like?(gossip) %>
+                    <form action="/gossips/<%= gossip.id %>/like" method="post">
+                      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                      <button class="btn btn-success mb-4" type="submit"><i class="fa fa-thumbs-up"> Like | <%=gossip.likes.length%></i> </button>
+                    </form>
+                  <% else %>
+                    <% @like = find_like(gossip) %>
+                      <a href="<%= gossip_like_path(gossip.id, like.id) %>" data-method="delete"><button class="btn btn-danger mb-4" type="submit"><i class="fa fa-thumbs-down"> Unlike | <%=gossip.likes.length%></i> </button></a>
+                  <% end %>
+                  <%else%>
+                  <form action="/gossips/<%= gossip.id %>/like" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <button class="btn btn-success mb-4" type="submit"><i class="fa fa-thumbs-up"> Like | <%=gossip.likes.length%></i> </button>
+                  <%end%>
                 </div>
                 <%end%>
                 <%end%>

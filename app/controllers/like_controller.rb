@@ -4,7 +4,7 @@ class LikeController < ApplicationController
     if @like.save
       redirect_to gossip_path(params[:gossip_id])
     else
-      flash[:error] = "ROLLBACK, hey ! les validations ne sont pas passées, je te renvoie une ou plusieurs erreurs"
+      flash[:error] = "please log in"
       redirect_to gossip_path(params[:gossip_id])
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_110236) do
+ActiveRecord::Schema.define(version: 2019_10_31_151701) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -33,9 +33,22 @@ ActiveRecord::Schema.define(version: 2019_10_30_110236) do
     t.string "title"
     t.text "content"
     t.integer "user_id"
+    t.integer "like_id"
+    t.integer "dislike_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dislike_id"], name: "index_gossips_on_dislike_id"
+    t.index ["like_id"], name: "index_gossips_on_like_id"
     t.index ["user_id"], name: "index_gossips_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "gossip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gossip_id"], name: "index_likes_on_gossip_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "taggossips", force: :cascade do |t|
@@ -59,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_10_30_110236) do
     t.text "description"
     t.string "email"
     t.integer "age"
+    t.string "password_digest"
     t.integer "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

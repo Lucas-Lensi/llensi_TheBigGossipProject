@@ -14,18 +14,33 @@
       </div>
       <div class="card mb-3">
         <div class="card-body">
-          <p class="card-text">
+          <div class="card-text">
             <h2><%= @gossip.title %></h2><br>
             <h4><%= @gossip.content %></h4><br>
             <p><%=@gossip.user.first_name%> <%=@gossip.user.last_name%>, <%=@gossip.user.city.name%></p><br>
-          </p>
+          </div>
+            <% unless already_like?(@gossip) %>
+              <form action="/gossips/<%= @gossip.id %>/like" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <button class="btn btn-success mr-4" type="submit"><i class="fa fa-thumbs-up"> Like</i> </button>
+                <%=@gossip.likes.length%> likes
+              </form>
+            <% else %>
+              <% @like = find_like(@gossip) %>
+                <a href="<%= gossip_like_path(@gossip.id, @like.id) %>" data-method="delete"><button class="btn btn-danger mr-4" type="submit"><i class="fa fa-thumbs-down"> Unlike</i> </button></a>
+                <%=@gossip.likes.length%> likes
+            <% end %>
+          <br><br>
+
           <p><B>Commentaires : </B></p>
           <p>
             <% @gossip.comments.each do |comment|%>
             <div class="container ml-0 pl-0 pt-2 pb-2 border-top">
               <B><%= comment.user.first_name %></B> : <%= comment.content %><br>
-              <small><a href="<%= edit_gossip_comment_path(@gossip.id, comment.id) %>">Edit </a>/</small>
-              <small><a href="<%= gossip_user_path(@gossip.id, comment.user.id) %>"> Author</a></small>
+              <% if is_author?(comment.user)%>
+              <small><a href="<%= edit_gossip_comment_path(@gossip.id, comment.id) %>">Edit </a>/ </small>
+              <% end %>
+              <small><a href="<%= user_path(comment.user.id) %>">Author</a></small>
             </div>
             <%end%>
           </p>
@@ -42,10 +57,12 @@
         </div>
         <br>
 
-          <a href="<%=gossip_user_path(@gossip.id, @gossip.user.id)%>"><button type="button" class="btn btn-primary">Author</button></a>
+          <a href="<%=user_path(@gossip.user.id)%>"><button type="button" class="btn btn-primary">Author</button></a>
           <a href="<%=city_path(@gossip.user.city.id)%>"><button type="button" class="btn btn-primary">City</button></a>
-          <a href="<%= edit_gossip_path(@gossip.id) %>"><button type="button" class="btn btn-warning">Edit</button></a>
-          <a href="<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Are you sure ?" data-method="delete">Delete</a>
+          <% if is_author?(@gossip.user) %>
+            <a href="<%= edit_gossip_path(@gossip.id) %>"><button type="button" class="btn btn-warning">Edit</button></a>
+            <a href="<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Are you sure ?" data-method="delete">Delete</a>
+          <% end %>
         </div>
       </div>
     </section>

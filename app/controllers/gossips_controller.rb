@@ -1,4 +1,7 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :is_author?, only: [:edit, :update, :destroy]
+
   def index
     @gossips = Gossip.all
   end
@@ -12,7 +15,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @create_gossip = Gossip.new(title: params[:title], content: params[:content], user: User.first)
+    @create_gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
     if @create_gossip.save
       flash[:success] = "BRAVO, votre potin a bien été uploadé"
       redirect_to gossips_path

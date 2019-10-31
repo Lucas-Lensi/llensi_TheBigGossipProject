@@ -15,15 +15,6 @@ City.create(name: "Lyon", zip_code: "69003")
   puts "#{index+1} city created"
 end
 
-User.create(
-  first_name: "Lucas",
-  last_name: "Lensi",
-  description: "A bien detesté cette journée...",
-  email: "lucas.lensi@gmail.com",
-  age: 23,
-  city: City.find(1)
-)
-
 10.times do |index|
   User.create(
     first_name: Faker::Name.first_name,
@@ -31,34 +22,50 @@ User.create(
     description: Faker::Quote.most_interesting_man_in_the_world,
     email: Faker::Internet.free_email,
     age: Faker::Number.between(from: 10, to: 60),
-    city: City.find(rand(1..10))
+    city: City.find(rand(1..10)),
+    password: Faker::Alphanumeric.alphanumeric(number: 10)
   )
     puts "#{index+1} user created"
 end
 
 20.times do |index|
-  Gossip.create(
+  Gossip.create!(
     title: Faker::Games::ElderScrolls.race,
     content: Faker::Quote.famous_last_words,
-    user: User.find(rand(2..11))
+    user: User.find(rand(1..10))
   )
   puts "#{index+1} gossip created"
 end
 
 50.times do |index|
-  Comment.create(
+  Comment.create!(
     content: Faker::Quote.robin,
-    user: User.find(rand(2..11)),
+    user: User.find(rand(1..10)),
     gossip: Gossip.find(rand(1..20))
   )
   puts "#{index+1} comment created"
 end
 
-10.times do |index|
-  Tag.create(title: Faker::Games::Pokemon.name)
-  puts "#{index+1} tag created"
+#10.times do |index|
+#  Tag.create(title: Faker::Games::Pokemon.name)
+#  puts "#{index+1} tag created"
+#end
+
+5.times do |index|
+  LikeDislike.create!(
+    user: User.find(rand(1..10)),
+    like: Gossip.find(rand(1..20))
+  )
+  puts "#{index} like created"
 end
 
+5.times do |index|
+  LikeDislike.create!(
+    user: User.find(rand(1..10)),
+    dislike: Gossip.find(rand(1..20))
+  )
+  puts "#{index} like created"
+end
 #40.times do |index|
 #  TagGossip.create(tag: Tag.find(rand(1..10)), gossip: Gossip.find(rand(1..20)))
 #  puts "#{index+1} gossip taggé"

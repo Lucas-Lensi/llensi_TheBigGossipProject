@@ -5,7 +5,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <script src="https://kit.fontawesome.com/fc5c2bb146.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -31,7 +35,22 @@
             <a class="nav-link" <%= link_to "Contact", gossips_path %></a>
           </li>
         </ul>
-      </div>
+        <% if logged_in? %>
+          <form class="form-inline">
+            <%= link_to "Se déconnecter", session_path(session.id), method: :delete, class: "btn btn-outline-light my-2 my-sm-0" %>
+          </form>
+        <% else %>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Se connecter
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <%= link_to "Login", new_session_path, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to "Sign up", new_user_path, class: "dropdown-item" %>
+          </div>
+        </div>
+        <%end%>
     </nav>
     <div class="container">
       <% flash.each do |name, msg| %>

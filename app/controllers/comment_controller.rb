@@ -1,9 +1,9 @@
 class CommentController < ApplicationController
+  before_action :authenticate_user
+  before_action :is_author?, only: [:edit, :update, :destroy]
+
   def create
-    @create_comment = Comment.new(content: params[:user_comment], gossip: Gossip.find(params[:gossip_id]), user: User.first)
-    puts '$' * 60
-    puts params
-    puts '$' * 60
+    @create_comment = Comment.new(content: params[:user_comment], gossip: Gossip.find(params[:gossip_id]), user: current_user)
     if @create_comment.save
       flash[:success] = "BRAVO, votre commentaire a bien été uploadé"
       redirect_to gossip_path(@create_comment.gossip.id)

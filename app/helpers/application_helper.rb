@@ -4,4 +4,8 @@ module ApplicationHelper
     error: 'alert-danger'
   }[flash_type.to_sym] || flash_type.to_s
   end
+
+  def is_author? (author)
+    return current_user == author ? true : false
+  end
 end

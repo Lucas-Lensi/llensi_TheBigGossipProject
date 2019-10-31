@@ -19,6 +19,7 @@
             <h4><%= @gossip.content %></h4><br>
             <p><%=@gossip.user.first_name%> <%=@gossip.user.last_name%>, <%=@gossip.user.city.name%></p><br>
           </div>
+          <% if logged_in? %>
             <% unless already_like?(@gossip) %>
               <form action="/gossips/<%= @gossip.id %>/like" method="post">
                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -30,6 +31,7 @@
                 <a href="<%= gossip_like_path(@gossip.id, @like.id) %>" data-method="delete"><button class="btn btn-danger mr-4" type="submit"><i class="fa fa-thumbs-down"> Unlike</i> </button></a>
                 <%=@gossip.likes.length%> likes
             <% end %>
+            <%end%>
           <br><br>
 
           <p><B>Commentaires : </B></p>

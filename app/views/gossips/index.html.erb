@@ -38,7 +38,7 @@
             </form>
           <% else %>
             <% @like = find_like(gossip) %>
-              <a href="<%= gossip_like_path(gossip.id, like.id) %>" data-method="delete"><button class="btn btn-danger mr-4" type="submit"><i class="fa fa-thumbs-down"> Unlike</i> </button></a>
+              <a href="<%= gossip_like_path(gossip.id, @like.id) %>" data-method="delete"><button class="btn btn-danger mr-4" type="submit"><i class="fa fa-thumbs-down"> Unlike</i> </button></a>
               <%=gossip.likes.length%> likes
           <% end %>
           <%else%>
